@@ -1,8 +1,30 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Error page</title>
+    <title>Error Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7da;
+            color: #721c24;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        h1 {
+            color: #dc3545;
+        }
+    </style>
 </head>
 <body>
-<h1 th:inline="text">Error message: [[${message}]]</h1>
+<div class="container">
+    <h1 th:inline="text">Error message: [[${message}]]</h1>
+</div>
 </body>
 </html>

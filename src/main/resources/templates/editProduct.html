@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Update User</title>
+    <title>Update Product</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,14 +35,14 @@
             border-radius: 5px;
         }
         input:focus {
-            border-color: #dc3545;
+            border-color: #007bff;
             outline: none;
         }
         button {
             width: 100%;
             padding: 10px;
             margin-top: 15px;
-            background: #dc3545;
+            background: #007bff;
             color: white;
             border: none;
             border-radius: 5px;
@@ -50,34 +50,22 @@
             font-size: 16px;
         }
         button:hover {
-            background: #b02a37;
+            background: #0056b3;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Update User</h1>
-    <form action="/user" method="post">
-        <label for="firstname">First name:</label>
-        <input type="text" id="firstname" name="firstname" th:value="${user.firstname}" required>
+    <h1>Update Product</h1>
+    <form action="/product" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" th:value="${product.name}" required>
 
-        <label for="secondName">Second name:</label>
-        <input type="text" id="secondName" name="secondName" th:value="${user.secondName}" required>
+        <label for="price">Price:</label>
+        <input type="number" step="0.01" id="price" name="price" th:value="${product.price}" required>
 
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age" th:value="${user.age}" required>
-
-        <label for="telephoneNumber">Telephone number:</label>
-        <input type="text" id="telephoneNumber" name="telephoneNumber" th:value="${user.telephoneNumber}" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" th:value="${user.email}" required>
-
-        <label for="sex">Sex:</label>
-        <input type="text" id="sex" name="sex" th:value="${user.sex}" required>
-
-        <input type="hidden" id="id" name="id" th:value="${user.id}" />
+        <input type="hidden" id="id" name="id" th:value="${product.id}" />
 
         <button type="submit">Save changes</button>
     </form>
@@ -85,4 +73,3 @@
 
 </body>
 </html>
-

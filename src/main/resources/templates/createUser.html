@@ -1,43 +1,90 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create user</title>
+    <title>Create User</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h2>Create user</h2>
-<form action="create" method="POST">
-    <div>
+<div class="container">
+    <h2>Create User</h2>
+    <form action="create" method="POST">
         <label for="firstname">First name:</label>
-        <input type="text" id="firstname" name="firstname">
-    </div>
+        <input type="text" id="firstname" name="firstname" required>
 
-    <div>
         <label for="secondName">Second name:</label>
-        <input type="text" id="secondName" name="secondName">
-    </div>
+        <input type="text" id="secondName" name="secondName" required>
 
-    <div>
         <label for="age">Age:</label>
-        <input type="number" id="age" name="age">
-    </div>
+        <input type="number" id="age" name="age" required>
 
-
-    <div>
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-    </div>
+        <input type="email" id="email" name="email" required>
 
-    <div>
         <label for="sex">Sex:</label>
-        <input type="text" id="sex" name="sex">
-    </div>
+        <input type="text" id="sex" name="sex" required>
 
-    <div>
         <label for="telephoneNumber">Telephone number:</label>
-        <input type="text" id="telephoneNumber" name="telephoneNumber">
-    </div>
+        <input type="text" id="telephoneNumber" name="telephoneNumber" required>
 
-
-    <input type="submit" value="Create user">
-</form>
+        <input type="submit" value="Create User">
+    </form>
+</div>
 </body>
 </html>

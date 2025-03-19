@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>User Information</title>
+    <title>Product Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,22 +55,18 @@
 </head>
 <body>
 <div class="container">
-    <h1>User Information</h1>
-    <p th:inline="text">Id: [[${user.id}]]</p>
-    <p th:inline="text">First name: [[${user.firstname}]]</p>
-    <p th:inline="text">Second name: [[${user.secondName}]]</p>
-    <p th:inline="text">Age: [[${user.age}]]</p>
-    <p th:inline="text">Telephone number: [[${user.telephoneNumber}]]</p>
-    <p th:inline="text">Sex: [[${user.sex}]]</p>
-    <p th:inline="text">Created: [[${user.created}]]</p>
-    <p th:inline="text">Updated: [[${user.updated}]]</p>
-    <p th:inline="text">Deleted: [[${user.deleted}]]</p>
+    <h1>Product Information</h1>
+    <p th:inline="text">Id: [[${product.id}]]</p>
+    <p th:inline="text">Name: [[${product.name}]]</p>
+    <p th:inline="text">Price: [[${product.price}]]</p>
+    <p th:inline="text">Created: [[${product.created}]]</p>
+    <p th:inline="text">Updated: [[${product.updated}]]</p>
 
-    <form th:action="@{/user/update-page/{id}(id=${user.id})}" method="get">
-        <button type="submit" class="btn btn-update">Update user</button>
+    <form th:action="@{/product/update-page/{id}(id=${product.id})}" method="get">
+        <button type="submit" class="btn btn-update">Update product</button>
     </form>
-    <form th:action="@{/user/delete/{id}(id=${user.id})}" method="post">
-        <button type="submit" class="btn btn-delete">Delete user</button>
+    <form th:action="@{/product/delete/{id}(id=${product.id})}" method="post">
+        <button type="submit" class="btn btn-delete">Delete product</button>
     </form>
 </div>
 </body>

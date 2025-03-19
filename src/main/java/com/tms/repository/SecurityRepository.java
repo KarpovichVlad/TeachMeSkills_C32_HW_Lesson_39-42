@@ -13,18 +13,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.Optional;
 
 @Repository
 public class SecurityRepository {
 
-    private DatabaseService databaseService;
+    private final DatabaseService databaseService;
 
     @Autowired
     public SecurityRepository(DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
 
-    public Boolean registration(RegistrationRequestDto requestDto) throws SQLException {
+    public Optional<Long> registration(RegistrationRequestDto requestDto) throws SQLException {
         Connection connection = databaseService.getConnection();
 
         try {
@@ -45,7 +46,6 @@ public class SecurityRepository {
             if (generatedKeys.next()) {
                 userId = generatedKeys.getLong(1);
             }
-            System.out.println("Generated User ID: " + userId);
 
             PreparedStatement createSecurityStatement = connection.prepareStatement(SQLQuery.CREATE_SECURITY);
             createSecurityStatement.setString(1, requestDto.getLogin());
@@ -56,11 +56,12 @@ public class SecurityRepository {
             createSecurityStatement.executeUpdate();
 
             connection.commit();
-            return true;
+            return Optional.of(userId);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             connection.rollback();
         }
-        return false;
+        return Optional.empty();
     }
+
 }

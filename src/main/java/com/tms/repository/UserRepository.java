@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -112,5 +114,34 @@ public class UserRepository {
             return Optional.of(user);
         }
         return Optional.empty();
+    }
+
+    public List<User> getAllUsers() {
+        Connection connection = databaseService.getConnection();
+        List<User> users = new ArrayList<>();
+        try{
+            PreparedStatement getUserStatement = connection.prepareStatement(SQLQuery.GET_ALL_USERS);
+            ResultSet resultSet = getUserStatement.executeQuery();
+
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getLong("id"));
+                user.setFirstname(resultSet.getString("firstname"));
+                user.setSecondName(resultSet.getString("second_name"));
+                user.setAge(resultSet.getInt("age"));
+                user.setTelephoneNumber(resultSet.getString("telephone_number"));
+                user.setEmail(resultSet.getString("email"));
+                user.setCreated(resultSet.getTimestamp("created"));
+                user.setUpdated(resultSet.getTimestamp("updated"));
+                user.setSex(resultSet.getString("sex"));
+                user.setDeleted(resultSet.getBoolean("is_deleted"));
+
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+
+        }
+        return users;
     }
 }

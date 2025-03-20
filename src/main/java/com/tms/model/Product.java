@@ -1,5 +1,10 @@
 package com.tms.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -9,8 +14,16 @@ import java.sql.Timestamp;
 @Component
 public class Product {
     private Long id;
+
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "The name must contain only letters.")
+    @NotBlank(message = "The product name cannot be empty.")
+    @Size(min = 2, max = 100, message = "The name must contain from 2 to 100 characters.")
     private String name;
+
+    @NotNull(message = "The price cannot be empty")
+    @Positive(message = "The price should be positive")
     private Double price;
+
     private Timestamp created;
     private Timestamp updated;
 

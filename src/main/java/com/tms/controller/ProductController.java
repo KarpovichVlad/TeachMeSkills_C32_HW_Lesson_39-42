@@ -3,9 +3,11 @@ package com.tms.controller;
 import com.tms.model.Product;
 import com.tms.service.ProductService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,9 +43,14 @@ public class ProductController {
         return "editProduct";
     }
 
-    //Create
+    // Create
     @PostMapping("/create")
-    public String createProduct(@ModelAttribute("product") Product product, HttpServletResponse response, Model model) {
+    public String createProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, HttpServletResponse response, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "createProduct";
+        }
+
         Optional<Product> createdProduct = productService.createProduct(product);
         if (createdProduct.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -68,9 +75,14 @@ public class ProductController {
         return "product";
     }
 
-    //Update
-    @PostMapping
-    public String updateProduct(@ModelAttribute("product") Product product, Model model, HttpServletResponse response) {
+    // Update
+    @PostMapping("/update")
+    public String updateProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, Model model, HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "editProduct";
+        }
+
         Optional<Product> productUpdated = productService.updateProduct(product);
         if (productUpdated.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_CONFLICT);

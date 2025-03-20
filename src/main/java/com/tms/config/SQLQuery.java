@@ -6,6 +6,7 @@ public interface SQLQuery {
     String UPDATE_USER = "UPDATE users SET firstname=?,second_name=?,age=?,telephone_number=?,email=?,sex=?,updated=DEFAULT WHERE id=?";
     String CREATE_USER = "INSERT INTO users (id, firstname, second_name, age, telephone_number, email, created, updated, sex, is_deleted) " +
             "VALUES (DEFAULT, ?, ?, ?, ?, ?, DEFAULT, ?, ?, ?)";
+    String GET_ALL_USERS = "SELECT * FROM users WHERE is_deleted = false";
     String CREATE_SECURITY = "INSERT INTO security (id, login, password, role, created, updated, user_id) " +
             "VALUES (DEFAULT, ?, ?, ?, DEFAULT, ?, ?)";
 

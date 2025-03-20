@@ -2,59 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Product Information</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 350px;
-            text-align: center;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            font-size: 16px;
-            margin: 5px 0;
-        }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .btn-update {
-            background-color: #007bff;
-            color: white;
-        }
-        .btn-update:hover {
-            background-color: #0056b3;
-        }
-        .btn-delete {
-            background-color: #dc3545;
-            color: white;
-        }
-        .btn-delete:hover {
-            background-color: #a71d2a;
-        }
-    </style>
 </head>
 <body>
-<div class="container">
+<div>
     <h1>Product Information</h1>
     <p th:inline="text">Id: [[${product.id}]]</p>
     <p th:inline="text">Name: [[${product.name}]]</p>
@@ -63,10 +13,10 @@
     <p th:inline="text">Updated: [[${product.updated}]]</p>
 
     <form th:action="@{/product/update-page/{id}(id=${product.id})}" method="get">
-        <button type="submit" class="btn btn-update">Update product</button>
+        <button type="submit">Update product</button>
     </form>
     <form th:action="@{/product/delete/{id}(id=${product.id})}" method="post">
-        <button type="submit" class="btn btn-delete">Delete product</button>
+        <button type="submit">Delete product</button>
     </form>
 </div>
 </body>

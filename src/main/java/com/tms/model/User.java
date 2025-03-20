@@ -1,6 +1,11 @@
 package com.tms.model;
 
 
+import com.tms.annotation.CustomAge;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,11 +15,21 @@ import java.sql.Timestamp;
 @Component
 public class User {
     private Long id;
+    @NotNull(message = "Firstname cannot be null.")
+    @Size(min = 2, max = 20, message = "Firstname must be between 2 and 20 characters.")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Firstname must contain only letters.")
     private String firstname;
+    @NotNull(message = "Second name cannot be null.")
+    @Size(min = 2, max = 20, message = "Second name must be between 2 and 20 characters.")
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Second name must contain only letters.")
     private String secondName;
+    @CustomAge
     private Integer age;
+    @NotNull(message = "Email cannot be null.")
+    @Email(message = "Invalid email format.")
     private String email;
     private String sex;
+    @Pattern(regexp = "[0-9]{12}", message = "Telephone number must be exactly 12 digits.")
     private String telephoneNumber;
     private Timestamp created;
     private Timestamp updated;

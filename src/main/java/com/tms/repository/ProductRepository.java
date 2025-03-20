@@ -77,7 +77,6 @@ public class ProductRepository {
     public Boolean updateProduct(Product product) {
         Connection connection = databaseService.getConnection();
 
-
     try {
         PreparedStatement getProductStatement = connection.prepareStatement(SQLQuery.UPDATE_PRODUCT);
 

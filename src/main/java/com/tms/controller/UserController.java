@@ -3,15 +3,18 @@ package com.tms.controller;
 import com.tms.model.User;
 import com.tms.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -44,7 +47,12 @@ public class UserController {
 
     //Create
     @PostMapping("/create")
-    public String createUser(@ModelAttribute("user") User user, HttpServletResponse response, Model model) {
+    public String createUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, HttpServletResponse response, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "createUser";
+        }
+
         Optional<User> createdUser = userService.createUser(user);
         if (createdUser.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -70,8 +78,13 @@ public class UserController {
     }
 
     //Update
-    @PostMapping
-    public String updateUser(@ModelAttribute("user") User user, Model model, HttpServletResponse response) {
+    @PostMapping("/update")
+    public String updateUser(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model, HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getAllErrors());
+            return "edit";
+        }
+
         Optional<User> userUpdated = userService.updateUser(user);
         if (userUpdated.isEmpty()) {
             response.setStatus(HttpServletResponse.SC_CONFLICT);
@@ -96,4 +109,20 @@ public class UserController {
         model.addAttribute("user", userDeleted.get());
         return "user";
     }
+    //getAll
+    @GetMapping("/users")
+    public String getAllUsers(Model model, HttpServletResponse response) {
+        List<User> users = userService.getAllUsers();
+
+        if (users.isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            model.addAttribute("message", "There are no users in the database.");
+            return "innerError";
+        }
+
+        model.addAttribute("users", users);
+        response.setStatus(HttpServletResponse.SC_OK);
+        return "userlist";
+    }
+
 }

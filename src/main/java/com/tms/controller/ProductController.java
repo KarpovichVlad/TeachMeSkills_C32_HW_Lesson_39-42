@@ -102,7 +102,7 @@ public class ProductController {
         if (!isDeleted) {
             response.setStatus(HttpServletResponse.SC_CONFLICT); // 409
             model.addAttribute("message", "Product not deleted.");
-            return "innerError"; // Покажет страницу с ошибкой
+            return "innerError";
         }
 
         response.setStatus(HttpServletResponse.SC_NO_CONTENT); // 204
